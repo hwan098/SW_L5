@@ -1,0 +1,44 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="java.sql.*"%>
+<% 
+	Class.forName("oracle.jdbc.driver.OracleDriver");
+
+	Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "system", "1234");
+	
+	Statement stmt = conn.createStatement();
+	
+	ResultSet rs = stmt.executeQuery("SELECT * FROM custom_01");
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>localhost/2017_SWL3_V2_01</title>
+</head>
+<body>
+	<h1>회원목록조회</h1>
+	<hr>
+	<table border="1">
+		<thead>
+			<tr>
+				<td>회원아이디</td>
+				<td>회원이름</td>
+				<td>이메일</td>
+				<td>연락처</td>
+			</tr>
+		<thead>
+		<tbody>
+			<% while(rs.next()){ %>
+			<tr>
+				<td><%= rs.getString(1) %></td>
+				<td><%= rs.getString(3) %></td>
+				<td><%= rs.getString(4) %></td>
+				<td><%= rs.getString(5) %></td>
+			</tr>
+			<% } %>
+		</tbody>
+	</table>
+	<hr>
+	<h3>HRDKOREA Copyright&copy; 2015 All rights reserved. Human Resources Development Service of Korea</h3>
+</body>
+</html>
